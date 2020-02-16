@@ -3,7 +3,7 @@ rdf_prefix_path: "_data/prefixes.sparql"
 layout: page
 ---
 
-<h1>{{ page.rdf | rdf_property: "dbo:location" }} {{ page.rdf | rdf_property: "dbo:year" }}</h1>
+<h1>{{ page.rdf | rdf_property: "dbo:location" | rdf_property: "rdfs:label" }} {{ page.rdf | rdf_property: "dbo:year" }}</h1>
 <!-- {{ page.rdf }} -->
 
 {% capture query %}
