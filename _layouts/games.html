@@ -3,16 +3,11 @@ rdf_prefix_path: "_data/prefixes.sparql"
 layout: page
 ---
 
-<h1>{{ page.rdf | rdf_property: "dbo:year" }}</h1>
-{{ page.rdf }}
-
-<dl>
-    <dt class="red">Location:</dt>
-    <dd>{{ page.rdf | rdf_property: "dbo:location" }}</dd>
-</dl>
+<h1>{{ page.rdf | rdf_property: "dbo:location" }} {{ page.rdf | rdf_property: "dbo:year" }}</h1>
+<!-- {{ page.rdf }} -->
 
 {% capture query %}
-SELECT ?athlete
+SELECT DISTINCT ?athlete
     WHERE {
         ?instance ex:athlete ?athlete;
                   ex:medal ?medal;
@@ -27,10 +22,6 @@ SELECT ?athlete
         ex:season ?season;
         dbo:year ?year .
 
-        ?city rdfs:label ?cityName .
-
-        ?season rdfs:label ?seasonName .
-
         FILTER(?year = {{ page.rdf | rdf_property: "dbo:year" }}).
 
     }
@@ -38,13 +29,13 @@ SELECT ?athlete
 {% endcapture %}
 {% assign resultset = page.rdf | sparql_query: query %}
 
+<h3>Athletes</h3>
+
 {% for result in resultset %}
-{{ result.athlete }}
+<!-- {{ result.athlete }} -->
 <div class="posts">
     <div>
-        <h3 class="post-link">
           <a href="{{ result.athlete.page_url }}">{{ result.athlete | rdf_property: "foaf:name" }}</a>
-        </h3>
     </div>
 </div>
 {% endfor %}

@@ -4,17 +4,11 @@ layout: page
 ---
 
 <h1>{{ page.rdf | rdf_property: "foaf:name" }}</h1>
-{{ page.rdf }}
-
-<dl>
-    <dt class="red">Age:</dt>
-    <dd>{{ page.rdf | rdf_property: "foaf:age" }}</dd>
-    <dt>Birth year:</dt>
-    <dd>{{ page.rdf | rdf_property: "dbo:birthYear" }}</dd>
-</dl>
+<!-- {{ page.rdf }} -->
+<p>Birth year: {{ page.rdf | rdf_property: "dbo:birthYear" }}</p>
 
 {% capture query %}
-SELECT ?games ?year ?sport ?medalLabel
+SELECT ?games ?year ?sport ?medalLabel ?cityName
     WHERE {
         ?instance ex:athlete ?athlete;
                   ex:medal ?medal;
@@ -42,13 +36,13 @@ ORDER BY DESC(?year)
 {% endcapture %}
 {% assign resultset = page.rdf | sparql_query: query %}
 
+<h3>Medals</h3>
+
 {% for result in resultset %}
-{{ result.games }}
+<!-- {{ result.games }} -->
 <div class="posts">
     <div>
-        <h3 class="post-link">
-          <a href="/resource/olympics/games/{{ result.year }}/Winter">{{ result.year }} {{ result.sport }} {{ result.medalLabel }}</a>
-        </h3>
+          <a href="/resource/olympics/games/{{ result.year }}/Winter">{{ result.year }} {{ result.cityName}}</a>,  {{ result.sport }}: {{ result.medalLabel }}
     </div>
 </div>
 {% endfor %}

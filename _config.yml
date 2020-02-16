@@ -18,10 +18,10 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Austrians @ Winter Olympics
+title: Austrian Medalists @ Winter Olympics 1980 - 2014
 email: hello@gunharth.io
 description: >- # this means to ignore newlines until "baseurl:"
- A jekyll site using the RDF-Plugin
+ Austrian Medalists @ Winter Olympics 1980 - 2014
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://example.org" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  gunharth
@@ -29,7 +29,6 @@ github_username:  gunharth
 # Build settings
 theme: minima
 plugins:
-  - jekyll-feed
   - jekyll-rdf
 
 jekyll_rdf:
@@ -39,7 +38,7 @@ jekyll_rdf:
     #   restriction: "SELECT ?resourceUri WHERE {?resourceUri ?p ?o .
     #             FILTER regex(str(?resourceUri),
     #             '^http://example.org/resource/olympics/')}"
-    default_template: "athletes"
+    default_template: "page"
     class_template_mappings:
         "http://xmlns.com/foaf/0.1/Person": "athlete"
         "http://dbpedia.org/ontology/Olympics": "games"

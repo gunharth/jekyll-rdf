@@ -1,35 +1,21 @@
 ---
 layout: page
-title: Winter Olympics
+title: Austrian Medalists @ Winter Olympics 1980 - 2014
 rdf_prefix_path: "_data/prefixes.sparql"
 weight: 100
-description: "Austrian Gold Medalists"
+description: "Austrian Medalists @ Winter Olympics 1980 - 2014"
 ---
 
 {% capture query %}
-SELECT ?games
+
+SELECT ?games ?year ?cityName
     WHERE {
-        ?instance ex:athlete ?athlete;
-                  ex:medal ?medal;
-                  ex:games ?games;
-                  ex:event ?event .
-
-        ?athlete foaf:name ?athleteLabel .
-
-        ?medal rdfs:label ?medalLabel .
-
+        ?instance ex:games ?games . 
         ?games dbo:location ?city ;
-        ex:season ?season;
         dbo:year ?year .
-
         ?city rdfs:label ?cityName .
-
-        ?season rdfs:label ?seasonName .
-
-        FILTER CONTAINS(?medalLabel,"Gold") .
-
     }
-GROUP BY ?year ?games
+GROUP BY ?year ?cityName ?games 
 ORDER BY DESC(?year)
 
 {% endcapture %}
@@ -39,9 +25,7 @@ ORDER BY DESC(?year)
 <!-- {{ result.games }} -->
 <div class="posts">
     <div>
-        <h3 class="post-link">
-          <a href="{{ result.games.page_url }}">{{ result.games | rdf_property: "dbo:year" }}</a>
-        </h3>
+        <a href="{{ result.games.page_url }}">{{ result.cityName}} {{ result.games | rdf_property: "dbo:year" }}</a>
     </div>
 </div>
 {% endfor %}
